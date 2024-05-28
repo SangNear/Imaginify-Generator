@@ -15,7 +15,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import { navLinks } from '@/contants'
+import { navLinks } from '@/constants'
 import { usePathname } from 'next/navigation'
 const MobileNav = () => {
     const path = usePathname()
@@ -73,8 +73,6 @@ const MobileNav = () => {
                                     </Button>
                                 </SignedOut>
                             </nav>
-
-
                         </SheetContent>
                     </Sheet>
                 </div>
