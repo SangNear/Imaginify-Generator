@@ -1,8 +1,5 @@
 import { Schema, model, models } from "mongoose";
 
-interface IUser {
-    
-}
 const UserSchema = new Schema({
     clerkId: {
         type: String,
