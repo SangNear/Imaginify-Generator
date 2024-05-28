@@ -78,6 +78,11 @@ const MobileNav = () => {
                 </div>
 
             </SignedIn>
+            <SignedOut>
+                <Button asChild className='bg-purple-gradient bg-cover rounded-full hover:opacity-90 transition-all'>
+                    <Link href="/sign-in">Login</Link>
+                </Button>
+            </SignedOut>
         </header>
     )
 }
