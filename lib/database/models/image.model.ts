@@ -55,7 +55,7 @@ const ImageSchema = new Schema({
     color: {
         type: String,
     },
-    promt: {
+    prompt: {
         type: String
     },
     author: {

@@ -84,7 +84,7 @@
 }
 
 .root-container {
-  @apply mt-16 flex-1 overflow-auto py-8 lg:mt-0 lg:max-h-screen lg:py-10
+  @apply  flex-1 overflow-auto py-8 lg:mt-0 lg:max-h-screen lg:py-10
 }
 
 /* ========================================== TAILWIND STYLES */
@@ -289,7 +289,7 @@
   }
 
   .media-uploader_cta {
-    @apply flex-center flex h-72 cursor-pointer flex-col gap-5 rounded-[16px] border border-dashed bg-purple-100/20 shadow-inner;
+    @apply flex-center flex h-72 cursor-pointer flex-col gap-5 rounded-[16px] border border-dashed bg-purple-100/20 shadow-2xl;
   }
 
   .media-uploader_cta-image {

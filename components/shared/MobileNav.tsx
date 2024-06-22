@@ -42,7 +42,7 @@ const MobileNav = () => {
                                             return (
                                                 <li key={link.route} className={`hover:bg-purple-400 hover:shadow-inner bg-cover p-3 rounded-3xl flex justify-center transition-all cursor-pointer ${isActive ? "bg-purple-gradient text-white" : "text-gray-700"}`}>
                                                     <Link href={link.route} className='flex size-full gap-4'>
-                                                        <Image src={link.icon} width={28} height={28} alt='icon-menu' />
+                                                        <Image src={link.icon} width={28} height={28} alt='icon-menu' className={`${isActive? "" : ""}`} />
                                                         {link.label}
                                                     </Link>
                                                 </li>

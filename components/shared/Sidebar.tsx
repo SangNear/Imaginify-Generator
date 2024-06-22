@@ -34,7 +34,7 @@ const Sidebar = () => {
                                     </li>
                                 )
                             })}
-                            <li className='flex-center p-3'>
+                            <li className='p-3'>
                                 <UserButton showName/>
                             </li>
                         </ul>
