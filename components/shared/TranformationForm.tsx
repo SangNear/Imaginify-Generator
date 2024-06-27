@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { aspectRatioOptions, defaultValues, transformationTypes } from "@/constants"
 import { CustomField } from "./CustomField"
-import { AspectRatioKey, debounce } from "@/lib/utils"
+import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
 import { useState } from "react"
 import MediaUploader from "./MediaUploader"
 export const formSchema = z.object({
@@ -74,20 +74,24 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
                 ...prev,
                 [type]: {
                     ...prev?.[type],
-                    [fieldName === 'prompt' ? 'prompt' : 'to']:
-                        value
+                    [fieldName === 'prompt' ? 'prompt' : 'to']: value
                 }
             }))
-            return onChangeField(value)
         }, 1000)
-
+        return onChangeField(value)
     }
     const onTransformHandler = () => {
+        setIsTranforming(true)
+
+        setTranformationConfig(deepMergeObjects(newTransformation, tranformationConfig))
+
+        setNewTransformation(null)
 
     }
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+
                 <CustomField
                     control={form.control}
                     name="title"
@@ -95,7 +99,6 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
                     className="w-full"
                     render={({ field }) => <Input {...field} className="input-field" />}
                 />
-
 
                 {type === 'fill' && (
                     <CustomField
@@ -119,6 +122,7 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
                         )}
                     />
                 )}
+
                 {(type === 'remove' || type === 'recolor') && (
                     <div className="prompt-field">
                         <CustomField
@@ -161,13 +165,13 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
                         )}
                     </div>
                 )}
-                
+
                 <div className="media-uploader-field">
                     <CustomField
                         control={form.control}
                         name="publicId"
                         className="flex size-full flex-col"
-                        render={({field})=> (
+                        render={({ field }) => (
                             <MediaUploader
                                 onValueChange={field.onChange}
                                 setImage={setImage}
@@ -196,7 +200,6 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
                         {isSubmitting ? "Submiting" : "Save Image"}
                     </Button>
                 </div>
-
             </form>
         </Form>
     )
