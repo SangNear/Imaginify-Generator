@@ -15,8 +15,10 @@ import { Input } from "@/components/ui/input"
 import { aspectRatioOptions, defaultValues, transformationTypes } from "@/constants"
 import { CustomField } from "./CustomField"
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
-import { useState } from "react"
+import { startTransition, useState } from "react"
 import MediaUploader from "./MediaUploader"
+import TranformedImage from "./TranformedImage"
+import { updateCredits } from "@/lib/actions/user.actions"
 export const formSchema = z.object({
     title: z.string(),
     aspectRatio: z.string().optional(),
@@ -45,7 +47,7 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
     function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
+        console.log("submit values",values)
     }
     const tranformationType = transformationTypes[type]
     const [image, setImage] = useState(data)
@@ -87,6 +89,9 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
 
         setNewTransformation(null)
 
+        startTransition( async () => {
+            await updateCredits(image, -1)
+        })
     }
     return (
         <Form {...form}>
@@ -180,6 +185,14 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
                                 type={type}
                             />
                         )}
+                    />
+                    <TranformedImage
+                        image={image}
+                        type={type}
+                        title={form.getValues().title}
+                        isTransforming={isTranforming}
+                        setIsTransforming={setIsTranforming}
+                        transformationConfig={tranformationConfig}
                     />
                 </div>
 
