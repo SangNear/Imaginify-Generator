@@ -1,10 +1,10 @@
-import { dataUrl, getImageSize } from '@/lib/utils'
+import { dataUrl, debounce, getImageSize } from '@/lib/utils'
 import { CldImage } from 'next-cloudinary'
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
 import React from 'react'
 
-const TranformedImage = ({ image, type, title, tranformationConfig, isTranforming, setIsTranforming, hasDownload = true }: TransformedImageProps) => {
+const TranformedImage = ({ image, type, title, transformationConfig, isTransforming, setIsTransforming, hasDownload = true }: TransformedImageProps) => {
   const downloadHandler = () => {
 
   }
@@ -26,25 +26,37 @@ const TranformedImage = ({ image, type, title, tranformationConfig, isTranformin
           </button>
         )}
       </div>
-      {image?.publicId && tranformationConfig ? (
-        <div className='relative'>
-          <CldImage
-            width={getImageSize(type, image, "width")}
-            height={getImageSize(type, image, "height")}
-            src={image?.publicId}
-            alt='image'
-            sizes={"(max-width: 767px) 100vw, 50vw"}
-            placeholder={dataUrl as PlaceholderValue}
-            className='tranformed-image'
-          />
-        </div>
-      )
+      {image?.publicId && transformationConfig ?
+        (
+          <div className='relative'>
+            <CldImage
+              width={getImageSize(type, image, "width")}
+              height={getImageSize(type, image, "height")}
+              src={image?.publicId}
+              alt='image'
+              sizes={"(max-width: 767px) 100vw, 50vw"}
+              placeholder={dataUrl as PlaceholderValue}
+              className='tranformed-image'
+              onLoad={() => {
+                setIsTransforming && setIsTransforming(false);
+              }}
+              onError={() => {
+                debounce(() => {
+                  setIsTransforming && setIsTransforming(false);
+                }, 8000)()
+              }}
+              {...transformationConfig}
+            />
+
+          </div>
+        )
         :
         (
           <div className='transformed-placeholder'>
             Tranformed Image
           </div>
-        )}
+        )
+      }
     </div>
   )
 }

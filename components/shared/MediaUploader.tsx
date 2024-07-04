@@ -42,8 +42,8 @@ const MediaUploader = ({ onValueChange, setImage, image, publicId, type }: Media
         })
     }
 
-    console.log("publicId from media: ", publicId );
-    console.log("image from media: ", image );
+    // console.log("publicId from media: ", publicId );
+    // console.log("image from media: ", image );
     return (
         <CldUploadWidget
             uploadPreset="near_imaginify"

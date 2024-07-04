@@ -61,7 +61,7 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
 
         setImage((prev: any) => ({
             ...prev,
-            aspectRation: imageSize.aspectRatio,
+            aspectRatio: imageSize.aspectRatio,
             width: imageSize.width,
             height: imageSize.height
         }))
@@ -89,9 +89,9 @@ const TranformationForm = ({ action, data = null, userId, type, creditBalance, c
 
         setNewTransformation(null)
 
-        startTransition( async () => {
-            await updateCredits(image, -1)
-        })
+        // startTransition( async () => {
+        //     await updateCredits(image, -1)
+        // })
     }
     return (
         <Form {...form}>
